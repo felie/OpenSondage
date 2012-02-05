@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %} {{ website_name }} {% endblock %}
+{% block content %}
+<form action="{{ base_path(request.getUrlFor('Edit/Default')) }}" method="post">
+  <div class="index">
+    <div>{{ image_tag('date.png', {'class': 'opacity valid-choice', 'rel': 'meeting'}) }}</div>
+    <button id="meeting" name="type" value="meeting" type="submit" class="button orange bigrounded">
+      {{ image_tag('calendar-32.png') }}
+      &nbsp;Cr&eacute;er un sondage spécial dates
+    </button>
+  </div>
+    
+  <div class="index">
+    <div>{{ image_tag('sondage.png', {'class': 'opacity valid-choice', 'rel': 'poll'}) }}</div>
+    <button id="poll" name="type" value="poll" type="submit" class="button blue bigrounded">
+      {{ image_tag('chart-32.png') }}
+      &nbsp;Cr&eacute;er un sondage classique
+    </button>
+  </div>
+  <div class="clear"></div>
+</form>
+{% endblock %}
+
+{% block js %}{{ js_tag('index.js') }}{% endblock %}

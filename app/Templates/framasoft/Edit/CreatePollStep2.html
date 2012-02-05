@@ -1,0 +1,29 @@
+  <div class="create-poll" id="create-poll-step2">
+    <p>
+      Vous avez créé un sondage pour déterminer un choix entre plusieurs choses<br />
+      Entrez les différents choix à proposer au vote :
+    </p>
+    
+    <div class="form">
+      {% set i = 0 %}
+      {% for question in list_questions %}
+      {% set nb_choice = i + 1 %}
+      <div class="field">
+        {{ forms.label('question_' ~ i, 'Choix ' ~ nb_choice) }}
+        {{ forms.input('question[' ~ i ~ ']', question, 'text', 'question_' ~ i) }}
+      </div>
+      {% set i = i + 1 %}
+      {% endfor %}
+    </div>
+    <div id="add-fields"></div>
+    
+    <div class="buttons">
+      <button name="previous" rel="create-poll-step1" class="button red poursuivre">
+        <strong>Précédent</strong>
+      </button>
+      
+      <button name="submit" class="button green poursuivre">
+        <strong>Créer le sondage</strong>
+      </button>
+    </div>
+  </div>

@@ -1,0 +1,9 @@
+<div id="comments">
+  {% for comment in comments %}
+  <div class="comment">
+    <div class="author">{{ comment.name }}</div>
+    <div class="date">{{ comment.getCreatedAt('Le %A %e %B à %H:%M') }}</div>
+    <div class="description">{{ comment.description }}</div>
+  </div>
+  {% endfor %}
+</div>

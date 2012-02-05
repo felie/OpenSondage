@@ -3,6 +3,25 @@ Description
 
 OpenSondage allow to create poll or meeting poll. It's the version 2 of the [https://github.com/leblanc-simon/OpenSondage] (OpenSondage)
 
+
+Installation
+============
+
+* Copy OpenSondage in your web server
+* Your DocumentRoot must be the "web" directory of OpenSondage
+* Complete config/config.php file with your value
+* Renamme config/runtime-conf-example.xml and complete config/runtime-conf.xml with your database and compile it with config/propel-gen
+* Add SQL structure in your database : model/sql/OpenSondage.Database.schema.sql
+
+
+Depends
+=======
+
+* Propel : http://www.propelorm.org/
+* SwiftMailer : http://swiftmailer.org/
+* Symfony Component (HttpFoundation) : https://github.com/symfony/HttpFoundation
+* twig : http://twig.sensiolabs.org/
+
 License
 =======
 

@@ -1,0 +1,331 @@
+/*************************************************
+ *
+ *                  GLOBAL
+ *
+ *************************************************/
+body {
+  background: #F7FAFE;
+  font-family: "Lucida Grande",Verdana,Arial,sans-serif;
+  font-size:1em;
+}
+
+textarea {
+  font-family: "Lucida Grande",Verdana,Arial,sans-serif;
+}
+
+.opacity{
+  opacity:0.6;
+}
+
+.opacity:hover{
+  opacity:1;
+}
+
+.clear{
+  clear:both;
+}
+
+.button img{
+  vertical-align:middle;
+}
+
+.field{
+  position:relative;
+  margin-bottom:1em;
+}
+
+.field label{
+  display:block;
+  font-size:0.9em;
+  font-weight:bold;
+}
+
+.field label.for_checkbox{
+  font-weight:normal;
+  display:inline;
+}
+
+.field input, .field textarea{
+  width:40%;
+  border: 1px solid #CCCCCC;
+  font-size:0.9em;
+  color:#404040;
+}
+
+.field input[type=checkbox]{
+  width:1em;
+}
+
+.field textarea{
+  height:8em;
+}
+
+.error{
+  color:red;
+  font-size:0.8em;
+}
+
+.hide{
+  display:none;
+}
+/*************************************************
+ *
+ *                  HEADER
+ *
+ *************************************************/
+header{
+  height:70px;
+  padding:10px;
+  background-color:#EAEAFF;
+  text-align: center;
+  margin-bottom:1em;
+  position:relative;
+  border-bottom: 1px solid #CCCCCC;
+}
+
+header .subtitle{
+  font-style: italic;
+  font-weight: bold;
+  font-size:0.9em;
+  color:#404040;
+}
+
+header .logo{
+  position:absolute;
+  top:3px;
+  right:0;
+}
+
+
+/*************************************************
+ *
+ *                  CONTENT
+ *
+ *************************************************/
+#content {
+  background-color: #FFFFFF;
+  border: 3px solid #CCCCCC;
+  border-radius: 20px 20px 20px 20px;
+  box-shadow: 5px 5px 5px #666666;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom:55px;
+  max-width: 70em;
+  padding: 30px;
+  width: 80%;
+  position:relative;
+  overflow:hidden;
+}
+
+/*************************************************
+ *                  INDEX
+ *************************************************/
+.index {
+  float:left;
+  width:50%;
+  text-align:center;
+}
+
+.valid-choice{
+  cursor: pointer;
+}
+
+/*************************************************
+ *               CREATE POLL
+ *************************************************/
+#form-create-poll{
+  width:220%;
+}
+
+.errors{
+  color:red;
+  margin-bottom:1em;
+}
+
+.create-poll{
+  margin-left:0;
+  width:45%;
+  float:left;
+  margin-right:5%;
+  position:relative;
+}
+
+.create-poll .buttons{
+  text-align:right;
+}
+
+.create-poll p{
+  margin-bottom:1em;
+}
+
+.create-poll .form{
+  margin-bottom:2em;
+}
+
+#create-poll-step1 .error{
+  display: inline;
+  margin-left:1em;
+}
+
+#create-poll-step1 .maybe{
+  display:none;
+}
+
+#create-poll-step2 .field{
+  float:left;
+  width:40%;
+  margin-right:5%;
+}
+
+#create-poll-step2 .field input{
+  width:100%;
+}
+
+#create-poll-step2 .error{
+  margin-bottom: 1em;
+  text-align: center;
+}
+
+#add-fields {
+  width:32px;
+  height:32px;
+  cursor:pointer;
+  background-image:url(../images/framasoft/plus.png);
+}
+
+/*************************************************
+ *                VIEW POLL
+ *************************************************/
+#form-response-poll{
+  font-size:0.8em;
+}
+
+.informations{
+  width:40%;
+  margin-left:auto;
+  margin-right:auto;
+  margin-bottom:2em;
+  border:1px solid #606060;
+  padding:1em;
+}
+
+.informations h2{
+  font-size:1.4em;
+  font-weight:bold;
+  text-align:center;
+  margin-bottom:1em;
+}
+
+.informations p{
+  margin-bottom:0.3em;
+  text-align:center;
+}
+
+.informations .label{
+  text-decoration:underline;
+}
+
+.instructions{
+  text-align:center;
+  margin-bottom:2em;
+}
+
+.poll table{
+  background-color: white;
+  text-align: center;
+  margin:0 auto;
+  border-collapse:separate;
+  border-spacing:2px;
+  border-color:#fff;
+}
+
+.poll td{
+  border: 2px;
+  background-color: #DDDDDD;
+  font-weight:  bold;
+  font-size:14px;
+  padding:0.3em 0.5em;
+}
+
+.poll td.blank,
+.poll .response td.blank{
+  background-color:#fff;
+}
+
+.poll .response td{
+  background-color:#FFC475;
+}
+
+.poll td.no{
+  background-color:#FFC475;
+}
+
+.poll td.no div.no{
+  color:#FFC475;
+}
+
+.poll td.yes{
+  background-color:#9494CF;
+}
+
+.poll td.yes div.yes{
+  height:32px;
+  width:45px;
+  color:#9494CF;
+  background-image:url(../../images/framasoft/valid-32.png);
+  background-repeat:no-repeat;
+  background-position:center center;
+}
+
+.poll td.maybe{
+  background-color:#FFEDA1;
+}
+
+.poll td.maybe div.maybe{
+  height:32px;
+  width:45px;
+  color:#FFEDA1;
+  background-image:url(../../images/framasoft/maybe.png);
+  background-repeat:no-repeat;
+  background-position:center center;
+}
+
+.poll td label{
+  font-weight:normal;
+  margin-bottom:0.4em;
+  display:block;
+  cursor: pointer;
+}
+
+.poll td label.selected{
+  font-weight:bold;
+  text-decoration:underline;
+}
+
+.poll td label input{
+  display:none;
+}
+
+
+/*************************************************
+ *                  INDEX
+ *************************************************/
+
+
+/*************************************************
+ *
+ *                  FOOTER
+ *
+ *************************************************/
+footer{
+  background-color: #C4C4FF;
+  border-top: 1px solid #999999;
+  bottom: 0;
+  color: black;
+  height: 17px;
+  margin-top: 1.5em;
+  padding: 15px 10px 13px;
+  position: fixed;
+  vertical-align: middle;
+  width: 100%;
+}

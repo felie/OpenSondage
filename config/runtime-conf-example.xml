@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+  <propel>
+    <datasources default="opensondage">
+      <datasource id="opensondage">
+        <adapter>mysql</adapter> <!-- sqlite, mysql, myssql, oracle, or pgsql -->
+        <connection>
+          <dsn>mysql:host=localhost;dbname=[database]</dsn>
+          <user>[username]</user>
+          <password>[password]</password>
+          <attributes>
+            <option id="ATTR_EMULATE_PREPARES">true</option>
+          </attributes>
+          <settings>
+            <setting id="charset">utf8</setting>
+          </settings>
+        </connection>
+      </datasource>
+    </datasources>
+  </propel>
+</config>

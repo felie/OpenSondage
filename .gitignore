@@ -1,0 +1,15 @@
+# IDE
+OpenSondage_v2.komodoproject
+OpenSondage_v2.kpf
+
+# Configuration
+config/classmap-OpenSondage-conf.php
+config/OpenSondage-conf.php
+config/runtime-conf.xml
+
+# Cache
+cache/*
+
+# Auto-generated classes
+model/classes/OpenSondage/Database/map
+model/classes/OpenSondage/Database/om

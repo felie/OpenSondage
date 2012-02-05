@@ -1,0 +1,85 @@
+{% import 'forms.twig' as forms %}
+{% extends "base.html" %}
+
+{% block title %} {{ website_name }} - Poll : {{ poll.name }} {% endblock %}
+
+{% block content %}
+<form id="form-response-poll" action="{{ base_path(request.getUrlFor('Poll/Response?public_uid=' ~ poll.publicUid)) }}" method="post">
+  <div class="informations">
+    <h2>{{ poll.name }}</h2>
+    <p><span class="label">Auteur du sondage</span> : <span class="value">{{ poll.username }}</span></p>
+    <p><span class="label">Adresse</span> : <span class="value">{{ base_path(request.getUrlFor('Poll/Default?public_uid=' ~ poll.publicUid), true) }}</span></p>
+    {% if poll.description %}<p><span class="label">Commentaire de l'auteur</span> : <br /><span class="value">{{ poll.description|nl2br }}</span></p>{% endif %}
+  </div>
+  
+  <div class="instructions">
+    <p>
+      Pour participer à ce sondage, veuillez entrer votre nom, choisir toutes les valeurs qui vous conviennent<br />
+      (sans tenir compte des disponibilités des autres sondés) et valider votre choix avec le bouton en bout de ligne.
+    </p>
+  </div>
+    
+  <div class="poll">
+    <table>
+      <thead>
+        <tr>
+          <td class="blank"></td>
+          {% for question in questions %}
+          <td>{{ question.name }}</td>
+          {% endfor %}
+          {% if can_edit %}
+          <td class="blank"></td>
+          {% endif %}
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <td class="blank">Somme</td>
+          {% for question in questions %}
+          <td>{{ question.result }}</td>
+          {% endfor %}
+          {% if can_edit %}
+          <td class="blank"></td>
+          {% endif %}
+        </tr>
+      </tfoot>
+      <tbody>
+        {% for user in users %}
+        <tr id="response_{{ user.id }}" class="response">
+          <td>
+            <div class="response{% if user_id == user.id %} hide{% endif %}">{{ user.name }}</div>
+            {% if can_edit %}
+            <div class="edit{% if user_id != user.id %} hide{% endif %}">{{ forms.input('name[' ~ user.id ~ ']', user.name) }}</div>
+            {% endif %}
+          </td>
+          {% for question in questions %}
+          <td class="{{ user.getResponse(question) }}">
+            <div class="response{% if user_id == user.id %} hide{% endif %} {{ user.getResponse(question) }}">{{ user.getResponse(question) }}</div>
+            {% if can_edit %}
+            <div class="edit{% if user_id != user.id %} hide{% endif %}">{{ forms.radio('response[' ~ user.id ~ '][' ~ question.id ~ ']', responses, user.getResponse(question)) }}</div>
+            {% endif %}
+          </td>
+          {% endfor %}
+          {% if can_edit %}
+          <td class="edit blank">
+            <div class="response{% if user_id == user.id %} hide{% endif %}"><a href="{{ base_path(request.getUrlFor('Poll/Default?public_uid=' ~ poll.publicUid ~ '&user_id=' ~ user.id)) }}" title="Edit answer">Edit</a></div>
+            <div class="edit{% if user_id != user.id %} hide{% endif %}">
+              <div class="save"><input type="submit" name="save_{{ user.id }}" value="Save" /></div>
+              <div class="cancel"><a href="{{ base_path(request.getUrlFor('Poll/Default?public_uid=' ~ poll.publicUid)) }}">Cancel</a></div>
+            </div>
+            <div class="loading"></div>
+          </td>
+          {% endif %}
+        </tr>
+        {% endfor %}
+        {% include 'Poll/NewResponse.html' %}
+      </tbody>
+    </table>
+  </div>
+</form>
+
+{% include 'Poll/ViewComment.html' %}
+
+{% endblock %}
+
+{% block js %}{{js_tag('view_poll.js') }}{% endblock %}

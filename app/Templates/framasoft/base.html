@@ -1,0 +1,41 @@
+<!DOCTYPE>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1" />
+    <title>{% block title %}{% endblock %}</title>
+    {{ css_tag('reset.css') }}
+    {{ css_tag('buttons.css') }}
+    {{ css_tag('styles.css') }}
+    {% block other_styles %}{% endblock %}
+  </head>
+  <body>
+    <header>
+      <div class="title">
+        <a href="{{ base_path(request.getUrlFor('Index/Default')) }}" title="Accueil {{ website_name }}">
+          {{ image_tag(website_logo, {'title': 'Accueil ' ~ website_name}) }}
+        </a>
+        <div class="subtitle">Organiser des rendez-vous simplement, librement.</div>
+      </div>
+      <div class="logo">{{ image_tag('logo/Framadate_logo.png', {'alt': 'Logo', 'height': 74}) }}</div>
+    </header>
+    
+    <div id="content">
+    {% block content %}{% endblock %}
+    </div>
+    
+    <footer>
+      <a class="button small gray" href="{{ base_path(request.getUrlFor('Index/Default')) }}">Accueil</a>
+      <a class="button small gray" href="http://framadate.org/aqg259dth55iuhwm">Exemple</a>
+      <a class="button small gray" href="{{ base_path(request.getUrlFor('Index/Contact')) }}">Contact</a>
+      <a class="button small gray" href="{{ base_path(request.getUrlFor('Index/About')) }}">Informations g&eacute;n&eacute;rales</a>
+    </footer>
+    {{ js_tag('https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js') }}
+    {% block js %}
+    <script type="text/javascript">
+      var execute = function(){};
+    </script>
+    {% endblock %}
+    {{ js_tag('functions.js') }}
+  </body>
+</html>

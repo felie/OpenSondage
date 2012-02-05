@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% import 'forms.twig' as forms %}
+
+{% block title %} {{ website_name }} - Create Poll {% endblock %}
+
+{% block content %}
+<form id="form-create-poll" action="{{ base_path(request.getUrlFor('Edit/CreatePoll')) }}" method="post">
+  {% include 'Edit/CreatePollErrors.html' %}
+  
+  {% include 'Edit/CreatePollStep1.html' %}
+  
+  {% include 'Edit/CreatePollStep2.html' %}
+  <div class="clear"></div>
+</form>
+{% endblock %}
+
+{% block js %}{{js_tag('create_poll.js') }}{% endblock %}

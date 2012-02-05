@@ -1,0 +1,12 @@
+        <tr class="new-response">
+          <td>{{ forms.input('name[0]', '') }}</td>
+          {% for question in questions %}
+          <td>{{ forms.radio('response[0][' ~ question.id ~ ']', responses, '') }}</td>
+          {% endfor %}
+          <td class="edit blank">
+            <div class="edit">
+              <div class="save"><input type="submit" name="save_0" value="Save" /></div>
+            </div>
+            <div class="loading"></div>
+          </td>
+        </tr>

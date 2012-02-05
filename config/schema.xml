@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database name="opensondage" defaultIdMethod="native" package="OpenSondage.Database" namespace="OpenSondage\Database">
+  <!-- POLL TABLE -->
+  <table name="poll" phpName="Poll">
+    <column name="name" type="VARCHAR" size="255" required="true" primaryString="true" description="Name of the poll" />
+    <column name="private_uid" type="VARCHAR" size="255" required="true" description="The private uid of the poll (use in the admin url)" />
+    <column name="public_uid" type="VARCHAR" size="255" required="true" description="The public uid of the poll (use in the public url)" />
+    <column name="username" type="VARCHAR" size="255" required="true" description="The name of the creator of the poll" />
+    <column name="mail" type="VARCHAR" size="255" required="true" description="Email of the creator of the poll" />
+    <column name="type" type="ENUM" required="true" valueSet="meeting,poll" default="poll" description="Type of poll : simple poll or meeting" />
+    <column name="maybe_authorized" type="BOOLEAN" required="false" default="0" description="Allow the user to answer maybe" />
+    <column name="nb_point_maybe" type="REAL" required="false" default="0.5" description="Number of point to the maybe response" />
+    <column name="description" type="LONGVARCHAR" required="false" description="Description of the poll" />
+    <column name="mail_modified" type="BOOLEAN" required="false" default="0" description="Send an email to the creator when a user add a response" />
+    <column name="allow_modified" type="BOOLEAN" required="false" default="0" description="Allow user to modified their response" />
+    <column name="end_at" type="DATE" required="true" description="The date where the poll can be deleted" />
+    <column name="login_required" type="BOOLEAN" default="0" description="Indicate if access of the poll, login is required" />
+    <column name="passwd" type="VARCHAR" size="255" required="false" description="The password to use for access of the poll" />
+    <column name="salt" type="VARCHAR" size="255" required="false" description="The salt use with the password" />
+    
+    <unique>
+      <unique-column name="private_uid" />
+    </unique>
+    <unique>
+      <unique-column name="public_uid" />
+    </unique>
+    
+    <behavior name="auto_add_pk" />
+    <behavior name="timestampable" />
+    <behavior name="query_cache" />
+    <behavior name="sluggable">
+      <parameter name="slug_pattern" value="/sondage/{PublicUid}" />
+    </behavior>
+    
+    <validator column="name">
+      <rule name="maxLength" message="The name of the poll can be no larger than ${value} in size" />
+      <rule name="required" message="Name of the poll is required" />
+    </validator>
+    <validator column="private_uid">
+      <rule name="minLength" message="The private UID of the poll must be at least ${value} characters" />
+      <rule name="maxLength" message="The private UID of the poll can be no larger than ${value} in size" />
+      <rule name="required" message="Private UID of the poll is required" />
+      <rule name="unique" message="Private UID of the poll already exists" />
+    </validator>
+    <validator column="public_uid">
+      <rule name="minLength" message="The public UID of the poll must be at least ${value} characters" />
+      <rule name="maxLength" message="The public UID of the poll can be no larger than ${value} in size" />
+      <rule name="required" message="Public UID of the poll is required" />
+      <rule name="unique" message="Public UID of the poll already exists" />
+    </validator>
+    <validator column="username">
+      <rule name="maxLength" message="The username can be no larger than ${value} in size" />
+      <rule name="required" message="Username is required" />
+    </validator>
+    <validator column="mail">
+      <rule name="maxLength" message="The mail can be no larger than ${value} in size" />
+      <rule name="required" message="Mail address is required" />
+      <rule name="match" value="/^([a-zA-Z0-9])+([\.a-zA-Z0-9_\+-])*@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-]+)+$/" message="Mail address isn't valid" />
+    </validator>
+    <validator column="type">
+      <rule name="validValues" value="meeting|poll" message="Type isn't a valid type" />
+    </validator>
+    <validator column="nb_point_maybe">
+      <rule name="minValue" value="0" message="Minimum value for maybe is ${value}" />
+      <rule name="maxValue" value="1" message="Maximum value for maybe is ${value}" />
+    </validator>
+  </table>
+  
+  
+  <!-- QUESTION TABLE -->
+  <table name="question" phpName="Question">
+    <column name="poll_id" type="INTEGER" required="true" description="Relation between poll and question" />
+    <column name="name" type="VARCHAR" size="255" required="true" primaryString="true" description="The title of the question" />
+    <column name="proposed_date" type="DATE" required="false" description="The date proposed in the poll" />
+    <column name="result" type="REAL" default="0" required="true" description="The result for this question" />
+    
+    <foreign-key foreignTable="poll" onDelete="cascade">
+      <reference local="poll_id" foreign="id"/>
+    </foreign-key>
+    
+    <behavior name="auto_add_pk" />
+    <behavior name="sortable">
+      <parameter name="use_scope" value="true" />
+      <parameter name="scope_column" value="poll_id" />
+    </behavior>
+    <behavior name="query_cache" />
+    
+    <validator column="poll_id">
+      <rule name="required" message="Relation with poll is required" />
+    </validator>
+    <validator column="name">
+      <rule name="maxLength" message="The name can be no larger than ${value} in size" />
+      <rule name="required" message="Name is required" />
+    </validator>
+  </table>
+  
+  
+  <!-- USER TABLE -->
+  <table name="user" phpName="User">
+    <column name="poll_id" type="INTEGER" required="true" description="Relation between poll and user" />
+    <column name="name" type="VARCHAR" size="255" required="true" primaryString="true" description="Name of the user who answers the poll" />
+    
+    <foreign-key foreignTable="poll" onDelete="cascade">
+      <reference local="poll_id" foreign="id"/>
+    </foreign-key>
+    
+    <behavior name="auto_add_pk" />
+    <behavior name="sortable">
+      <parameter name="use_scope" value="true" />
+      <parameter name="scope_column" value="poll_id" />
+    </behavior>
+    <behavior name="timestampable" />
+    <behavior name="query_cache" />
+    
+    <validator column="poll_id">
+      <rule name="required" message="Relation with poll is required" />
+    </validator>
+    <validator column="name">
+      <rule name="maxLength" message="The name can be no larger than ${value} in size" />
+      <rule name="required" message="Name is required" />
+    </validator>
+  </table>
+  
+  
+  <!-- USER_HAS_QUESTION TABLE -->
+  <table name="user_has_question" phpName="UserHasQuestion">
+    <column name="user_id" type="INTEGER" required="true" primaryKey="true" description="Relation between user and user_has_question" />
+    <column name="question_id" type="INTEGER" required="true" primaryKey="true" description="Relation between question and user_has_question" />
+    <!-- <column name="answer" type="ENUM" description="yes, no, maybe" /> -->
+    <column name="yes" type="BOOLEAN" description="The response of the answer is yes" />
+    <column name="no" type="BOOLEAN" description="The response of the answer is no" />
+    <column name="maybe" type="BOOLEAN" description="The response of the answer is maybe" />
+    
+    <foreign-key foreignTable="user" onDelete="cascade">
+      <reference local="user_id" foreign="id"/>
+    </foreign-key>
+    <foreign-key foreignTable="question" onDelete="cascade">
+      <reference local="question_id" foreign="id"/>
+    </foreign-key>
+    
+    <behavior name="query_cache" />
+    
+    <validator column="user_id">
+      <rule name="required" message="Relation with user is required" />
+    </validator>
+    <validator column="question_id">
+      <rule name="required" message="Relation with question is required" />
+    </validator>
+  </table>
+  
+  <!-- COMMENT TABLE -->
+  <table name="comment" phpName="Comment">
+    <column name="poll_id" type="INTEGER" required="true" description="Relation between poll and comment" />
+    <column name="name" type="VARCHAR" size="255" required="true" primaryString="true" description="Name of the user who comment the poll" />
+    <column name="description" type="LONGVARCHAR" required="false" description="Comment" />
+    
+    <foreign-key foreignTable="poll" onDelete="cascade">
+      <reference local="poll_id" foreign="id"/>
+    </foreign-key>
+    
+    <behavior name="auto_add_pk" />
+    <behavior name="timestampable" />
+    <behavior name="query_cache" />
+    
+    <validator column="poll_id">
+      <rule name="required" message="Relation with poll is required" />
+    </validator>
+    <validator column="name">
+      <rule name="maxLength" message="The name can be no larger than ${value} in size" />
+      <rule name="required" message="Name is required" />
+    </validator>
+  </table>
+</database>

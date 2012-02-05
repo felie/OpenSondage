@@ -1,0 +1,47 @@
+  <div class="create-poll" id="create-poll-step1">
+    <p>
+      Vous avez choisi de cr&eacute;er un nouveau sondage !<br />
+      Merci de remplir les champs obligatoires, marqu&eacute;s d'une *.
+    </p>
+    
+    <div class="form">
+      <div class="field">
+        {{ forms.label('name', 'Titre du sondage *') }}
+        {{ forms.input('name', poll.name) }}
+      </div>
+      <div class="field">
+        {{ forms.label('description', 'Commentaires') }}
+        {{ forms.textarea('description', poll.description) }}
+      </div>
+      <div class="field">
+        {{ forms.label('username', 'Votre nom *') }}
+        {{ forms.input('username', poll.username) }}
+      </div>
+      <div class="field">
+        {{ forms.label('mail', 'Votre adresse e-mail *') }}
+        {{ forms.input('mail', poll.mail) }}
+      </div>
+      <div class="field">
+        {{ forms.checkbox('maybe_authorized', poll.maybeAuthorized) }}
+        {{ forms.label('maybe_authorized', 'Vous souhaitez que les sondés puissent répondre "peut-être".', 'for_checkbox') }}
+      </div>
+      <div class="field maybe">
+        {{ forms.label('nb_point_maybe', 'Valeur d\'un "peut-être" (entre 0 et 1).') }}
+        {{ forms.input('nb_point_maybe', poll.nbPointMaybe) }}
+      </div>
+      <div class="field">
+        {{ forms.checkbox('allow_modified', poll.allowModified) }}
+        {{ forms.label('allow_modified', 'Vous souhaitez que les sondés puissent modifier leur ligne eux-mêmes.', 'for_checkbox') }}
+      </div>
+      <div class="field">
+        {{ forms.checkbox('mail_modified', poll.mailModified) }}
+        {{ forms.label('mail_modified', 'Vous souhaitez recevoir un mail à chaque participation d\'un sondé.', 'for_checkbox') }}
+      </div>
+    </div>
+    
+    <div class="buttons">
+      <button name="next" rel="create-poll-step2" class="button green poursuivre">
+        <strong>Continuer</strong>
+      </button>
+    </div>
+  </div>
